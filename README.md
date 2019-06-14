@@ -64,12 +64,12 @@ yarn test
 # or
 npm test
 
-# run tests 🎈 witch watcher 👀
+# run tests 🎈 with watcher 👀
 yarn test:watch
 # or
 npm run test:watch
 
-# run tests 🎈 witch watcher 👀 on only changed git files 🎳
+# run tests 🎈 with watcher 👀 on only changed git files 🎳
 yarn test:watchChanged
 # or
 npm run test:watchChanged
