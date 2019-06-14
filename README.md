@@ -15,7 +15,7 @@ yarn start
 # or
 npm start
 
-# run 🏃🏾‍♀️ with 👀
+# run 🏃🏾‍♀️ with watcher 👀
 yarn start:watch
 # or
 npm run start:watch
