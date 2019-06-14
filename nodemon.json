@@ -1,6 +1,7 @@
 {
     "ignore": [
         "**/*.spec.ts",
+        "src/test/**/*",
         ".git",
         "node_modules"
     ],

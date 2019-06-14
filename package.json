@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:watchChanged": " jest --watch",
     "build": "tsc",
     "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
-    "start:watch": "nodemon"
+    "start:watch": "nodemon",
+    "start:production": "node dist/index.js"
   },
   "author": "Ti/o",
   "license": "MIT",
