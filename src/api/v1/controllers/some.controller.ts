@@ -1,5 +1,10 @@
+import { Database } from "../../../database";
+
 export class SomeController {
-	someMethod() {
-		return 'Hello World!'
+	async someMethod(): Promise<string> {
+
+		Database.
+
+			return 'Hello World!'
 	}
 }

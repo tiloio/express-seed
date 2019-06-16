@@ -53,7 +53,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 Application is running on http://localhost:8080
 ```
 
-> For more information visit https://nodejs.org/en/docs/guides/debugging-getting-started/.
+> For more information visit [https://nodejs.org/en/docs/guides/debugging-getting-started/](https://nodejs.org/en/docs/guides/debugging-getting-started/).
 
 ## Tests & testing
 
@@ -74,7 +74,7 @@ yarn test:watchChanged
 npm run test:watchChanged
 ```
 
-> For more information visit https://jestjs.io.
+> For more information visit [https://jestjs.io](https://jestjs.io).
 
 ### Test structure
 
@@ -107,3 +107,20 @@ yarn run cross-env LOG_LEVEL=test yarn start
 npm install -g cross-env
 cross-env LOG_LEVEL=test npm start
 ```
+
+## database 🛢
+
+We use [apache couchdb](http://couchdb.apache.org/) as a database.
+> On local or test environment we start an [express-pouchdb](https://github.com/pouchdb/pouchdb-server) instance which acts like a couchdb server.
+
+You have to set the environment variables to call a real couchdb in production:
+
+- DATABASE_URL
+- DATABASE_PORT
+- DATABASE_NAME
+
+> The url should contain the password and username, for example `'http://admin:password@otherhost.com'`.
+
+Just call `await Database.getInstance()` from [`./src/database.ts`](./src/database.ts) file to recieve an instance of the database.
+
+> To work with the database we use CouchDB nano, visit [https://github.com/apache/couchdb-nano ](https://github.com/apache/couchdb-nano) for more information.

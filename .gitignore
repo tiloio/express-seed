@@ -1,5 +1,6 @@
 # Build
 dist/
+database/
 
 # Logs
 logs

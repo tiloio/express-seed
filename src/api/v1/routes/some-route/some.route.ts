@@ -1,4 +1,4 @@
-import * as express from 'express'
+import * as express from 'express';
 import { SomeController } from '../../controllers/some.controller';
 
 export class SomeRoute {
@@ -12,7 +12,7 @@ export class SomeRoute {
 	}
 
 	private init(): void {
-		this.router.get('/', (req, res) => {
+		this.router.get('/', (req: express.Request, res: express.Response) => {
 			res.send(this.controller.someMethod())
 		});
 	}
