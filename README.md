@@ -57,7 +57,6 @@ For more information visit https://nodejs.org/en/docs/guides/debugging-getting-s
 
 ## Tests & testing
 
-
 ```bash
 # run tests 🎈
 yarn test
@@ -80,3 +79,29 @@ For more information visit https://jestjs.io.
 ### Test structure
 
 In `./src/test` is a `TestWebService.ts` which can be used to run integration tests.
+
+## environment variables
+
+For passwords, database connections, log level and other stuff we need to set different values on different environment.
+The test environment should not use the production database and otherwise.
+
+To set your environment variables you can just set them in you system:
+
+```bash
+# windows
+set NODE_ENV=production
+# mac
+export NODE_ENV=production
+# linux
+export NODE_ENV=production
+```
+
+Or do it like we do it in the `package.json` for the `start` or `start:production` task:
+
+```bash
+# yarn
+yarn run cross-env LOG_LEVEL=test yarn start
+# npm
+npm install -g cross-env
+cross-env LOG_LEVEL=test npm start
+```
