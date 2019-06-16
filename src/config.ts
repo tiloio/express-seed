@@ -1,5 +1,6 @@
 let LOG_LEVEL = 'info';
 let ENVIRONMENT: string | undefined = process.env.NODE_ENV;
+let SERVER_PORT: number | undefined = process.env.SERVER_PORT ? Number.parseInt(process.env.SERVER_PORT) : 8080;
 
 export class Config {
     static setEnvironment(environment?: string) {
@@ -27,4 +28,4 @@ export class Config {
 Config.setEnvironment(ENVIRONMENT);
 
 
-export { LOG_LEVEL, ENVIRONMENT };
+export { LOG_LEVEL, ENVIRONMENT, SERVER_PORT };

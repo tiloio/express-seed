@@ -1,8 +1,7 @@
 import * as express from 'express';
 import { V1Route } from './api/v1/routes/v1.route';
-import { ENVIRONMENT, LOG_LEVEL } from './config';
+import { ENVIRONMENT, LOG_LEVEL, SERVER_PORT } from './config';
 
-const SERVER_PORT = 8080;
 const app: express.Application = express();
 
 app.use('/', new V1Route().router);

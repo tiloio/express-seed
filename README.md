@@ -53,7 +53,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 Application is running on http://localhost:8080
 ```
 
-For more information visit https://nodejs.org/en/docs/guides/debugging-getting-started/.
+> For more information visit https://nodejs.org/en/docs/guides/debugging-getting-started/.
 
 ## Tests & testing
 
@@ -74,13 +74,15 @@ yarn test:watchChanged
 npm run test:watchChanged
 ```
 
-For more information visit https://jestjs.io.
+> For more information visit https://jestjs.io.
 
 ### Test structure
 
 In `./src/test` is a `TestWebService.ts` which can be used to run integration tests.
 
 ## environment variables
+
+> The file [`./src/config.ts`](./src/config.ts) describes the environment variables.
 
 For passwords, database connections, log level and other stuff we need to set different values on different environment.
 The test environment should not use the production database and otherwise.
