@@ -1,9 +1,13 @@
+import * as path from 'path';
 import * as express from 'express';
 import { V1Route } from './api/v1/routes/v1.route';
 import { ENVIRONMENT, LOG_LEVEL, SERVER_PORT } from './config/config';
+import { Logger } from './config/logger';
+
+export const ROOT_DIRECTORY = path.join(__dirname, '..');
 
 (async () => {
-    logAppStarting();
+    Logger.appStarting();
 
     try {
         const app: express.Application = express();
@@ -12,34 +16,9 @@ import { ENVIRONMENT, LOG_LEVEL, SERVER_PORT } from './config/config';
 
         await app.listen(SERVER_PORT);
 
-        logAppRunning();
+        Logger.appRunning();
 
     } catch (error) {
-        logAppStartFailed(error);
+        Logger.appStartFailed(error);
     }
 })();
-
-function logAppStarting() {
-    console.log('\n' +
-        '\x1b[33m' + // set output color to yellow
-        'Starting app...' +
-        '\x1b[0m' + // reset output color     
-        '\n');
-}
-
-function logAppRunning() {
-    console.log('\n' +
-        '\x1b[32m' + // set output color to green
-        `Application is running on http://localhost:${SERVER_PORT} 
-             in ENVIRONMENT ${ENVIRONMENT} 
-             with LOG_LEVEL ${LOG_LEVEL}.` +
-        '\x1b[0m' + // reset output color
-        '\n');
-}
-
-function logAppStartFailed(error: any) {
-    console.error('\n' +
-        '\x1b[31m' + // set output color to red
-        'ERROR ON APPLICATION STARTUP IN ./index.ts:' +
-        '\n', error);
-}

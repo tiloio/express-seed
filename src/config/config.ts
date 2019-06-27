@@ -1,5 +1,7 @@
 import { Environment, LogLevel } from "./config.enums";
-import { getLocalDBServerPort } from "../test/local-database";
+import * as fs from 'fs';
+import * as path from 'path';
+import { ROOT_DIRECTORY } from "..";
 let LOG_LEVEL: string = LogLevel.info;
 let ENVIRONMENT: string | undefined = process.env.NODE_ENV;
 let SERVER_PORT: number;
@@ -65,3 +67,12 @@ export class Config {
 
 Config.setEnvironment(ENVIRONMENT);
 
+function getLocalDBServerPort(): number {
+    const serverportFilePath = path.join(ROOT_DIRECTORY, 'database', 'serverport');
+
+    if (!fs.existsSync(serverportFilePath)) {
+        return 0;
+    }
+
+    return Number.parseInt(fs.readFileSync(serverportFilePath, { encoding: 'UTF-8' }));
+}

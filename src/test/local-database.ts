@@ -4,24 +4,20 @@ import * as PouchDB from 'pouchdb';
 import * as express from 'express';
 import { Server } from 'http';
 import { Database } from '../database';
+import { ROOT_DIRECTORY } from '..';
 
-const LOCAL_DATABASE_PATH = './database';
+const LOCAL_DATABASE_PATH = path.join(ROOT_DIRECTORY, 'database');
 const SERVER_PORT_FILE_PATH = path.join(LOCAL_DATABASE_PATH, 'serverport');
 
-function getLocalDBServerPort(): number {
-    return Number.parseInt(fs.readFileSync(SERVER_PORT_FILE_PATH, { encoding: 'UTF-8' }));
-}
-
-async function createLocalDatabase(databasePort: number | undefined = undefined): Promise<Server> {
+export async function createLocalDatabase(databasePort: number | undefined = undefined): Promise<Server> {
     if (!fs.existsSync(LOCAL_DATABASE_PATH)) {
         fs.mkdirSync(LOCAL_DATABASE_PATH);
     }
 
     const expressPouchDb = require('express-pouchdb');
     const app: express.Application = express();
-    app.use('/', expressPouchDb(PouchDB.defaults({
-        prefix: LOCAL_DATABASE_PATH,
-    }), { logPath: path.join(LOCAL_DATABASE_PATH, 'log.txt') }));
+    app.use('/', expressPouchDb(PouchDB.defaults({ prefix: path.join(LOCAL_DATABASE_PATH, 'local') }),
+        { logPath: path.join(LOCAL_DATABASE_PATH, 'log.txt') }));
 
     const localDatabaseServer = await app.listen(databasePort || 0);
     const addressInformation: any = localDatabaseServer.address();
@@ -31,8 +27,7 @@ async function createLocalDatabase(databasePort: number | undefined = undefined)
     return localDatabaseServer;
 }
 
-
-async function clearDatabase() {
+export async function clearDatabase() {
     const database = await Database.getInstance();
     const allDocsBody = await database.list({ include_docs: true });
     const allDocsMarkedToBeDeleted = allDocsBody.rows.map(obj => {
@@ -40,10 +35,4 @@ async function clearDatabase() {
         return obj;
     });
     await database.bulk({ docs: allDocsMarkedToBeDeleted });
-}
-
-export {
-    getLocalDBServerPort,
-    createLocalDatabase,
-    clearDatabase
 }
