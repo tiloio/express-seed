@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { V1Route } from './api/v1/routes/v1.route';
-import { ENVIRONMENT, LOG_LEVEL, SERVER_PORT } from './config';
+import { ENVIRONMENT, LOG_LEVEL, SERVER_PORT } from './config/config';
 
 (async () => {
     logAppStarting();

@@ -1,20 +1,16 @@
 import { SomeController } from './some.controller';
-import { Database } from '../../../database';
+import { HelloWorldService } from '../../../services/hello-world.service';
+import { clearDatabase } from '../../../test/local-database';
 
-jest.mock('../../../database');
+afterEach(async () => clearDatabase());
 
 describe('SomeController', () => {
 	describe('someMethod', () => {
-		it('returns something from database', async() => {
+		it('returns hello world from database', async () => {
+			HelloWorldService.init();
 			const controller = new SomeController();
 
-			const mockGetInstance = jest.fn();
-			mockGetInstance.mockResolvedValue('worked');
-
-			Database.getInstance = mockGetInstance.bind(Database);
-			// TODO add test example for database.
-
-			expect(await controller.someMethod()).toBe('Hello World!')
+			expect(await controller.someMethod()).toBe('Hello World from the Database!')
 		});
 	});
 });

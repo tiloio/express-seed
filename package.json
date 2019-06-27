@@ -20,20 +20,20 @@
     "@types/node": "^12.0.7",
     "@types/pouchdb": "^6.3.3",
     "@types/supertest": "^2.0.7",
+    "express-pouchdb": "^4.1.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "pouchdb": "^7.1.1",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.2.0",
-    "typescript": "^3.5.1",
-    "express-pouchdb": "^4.1.0"
+    "typescript": "^3.5.1"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "helmet": "^3.15.0",
-    "nano": "^8.1.0",
-    "cross-env": "^5.2.0"
+    "nano": "^8.1.0"
   }
 }

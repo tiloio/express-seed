@@ -1,21 +1,25 @@
-import * as PouchDB from 'pouchdb';
-import * as express from 'express';
-import { ENVIRONMENT, DATABASE_URL, DATABASE_PORT, DATABASE_NAME } from './config';
+
+import { ENVIRONMENT, DATABASE_URL, DATABASE_PORT, DATABASE_NAME } from './config/config';
 import * as Nano from 'nano';
-import * as fs from 'fs';
+import { createLocalDatabase} from './test/local-database';
+
+import { Environment } from './config/config.enums';
 
 export class Database {
 
-    private static instance: Nano.DocumentScope<any>;
+    private static instance: Nano.DocumentScope<any> | undefined;
+    private static serverInstance: Nano.ServerScope | undefined;
 
     static async getInstance(): Promise<Nano.DocumentScope<any>> {
         if (this.instance) return this.instance;
 
-        if (ENVIRONMENT === 'local') {
-            Database.createLocalDatabase();
+        let databasePort = DATABASE_PORT;
+
+        if (ENVIRONMENT === Environment.local) {
+            databasePort = ((await createLocalDatabase(DATABASE_PORT)).address() as any ).port;
         }
 
-        const nano: Nano.ServerScope = <Nano.ServerScope>Nano(`${DATABASE_URL}:${DATABASE_PORT}`);
+        const nano: Nano.ServerScope = <Nano.ServerScope>Nano(`${DATABASE_URL}:${databasePort}`);
         const actualDatabases = await nano.db.list();
 
         if (!actualDatabases.some(database => database === DATABASE_NAME)) {
@@ -23,26 +27,24 @@ export class Database {
         }
 
         console.log(
-            `Initilized ${DATABASE_NAME} database with sever ${DATABASE_URL}:${DATABASE_PORT}. 
+            `Initilized ${DATABASE_NAME} database with sever ${DATABASE_URL}:${databasePort}. 
             Other databases on the server: ${actualDatabases.join(', ')}`
         );
 
+        this.serverInstance = nano;
         this.instance = nano.db.use(DATABASE_NAME);
 
         return this.instance;
     }
 
-    private static createLocalDatabase() {
-        const expressPouchDb = require('express-pouchdb');
-
-        const databasePath = './database/';
-        if (!fs.existsSync(databasePath)) {
-            fs.mkdirSync(databasePath);
-        }
-        const app: express.Application = express();
-        app.use('/', expressPouchDb(PouchDB.defaults({
-            prefix: databasePath,
-        }), { logPath: databasePath + '/log.txt' }));
-        app.listen(DATABASE_PORT);
+    static get server(): Nano.ServerScope | undefined {
+        return this.serverInstance;
     }
+
+    static disconnect() {
+        this.instance = undefined;
+        this.serverInstance = undefined;
+    }
+
 }
+
