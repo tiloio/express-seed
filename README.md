@@ -124,3 +124,9 @@ You have to set the environment variables to call a real couchdb in production:
 Just call `await Database.getInstance()` from [`./src/database.ts`](./src/database.ts) file to recieve an instance of the database.
 
 > To work with the database we use CouchDB nano, visit [https://github.com/apache/couchdb-nano ](https://github.com/apache/couchdb-nano) for more information.
+
+# security
+
+ The application is secured with helmet.js.
+
+ > For more information visit https://helmetjs.github.io/.

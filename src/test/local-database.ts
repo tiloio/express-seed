@@ -8,7 +8,6 @@ import { ROOT_DIRECTORY, ENVIRONMENT } from '../config/config';
 import { Environment } from '../config/config.enums';
 PouchDB.plugin(require('pouchdb-adapter-memory'));
 
-
 export class LocalDatabase {
 
     static readonly LOCAL_DATABASE_PATH = path.join(ROOT_DIRECTORY, 'database');
@@ -24,22 +23,21 @@ export class LocalDatabase {
         }
 
         const isInMemory = ENVIRONMENT == Environment.test;
-        const database = isInMemory ?
+        const ConfiguredPouchDB = isInMemory ?
             PouchDB.defaults({ prefix: this.PREFIX_PATH, adapter: 'memory' }) :
-            PouchDB.defaults({ prefix: this.PREFIX_PATH });
+            PouchDB.defaults({ prefix: this.PREFIX_PATH, });
 
         const expressPouchDb = require('express-pouchdb');
         const app: express.Application = express();
-        app.use('/', expressPouchDb(database,
+        app.use('/', expressPouchDb(ConfiguredPouchDB,
             {
                 logPath: path.join(this.LOCAL_DATABASE_PATH, 'log.txt'),
                 mode: 'minimumForPouchDB',
                 inMemoryConfig: true
             }));
 
-        this.databaseServerInstance = await app.listen(databasePort || 0);
-        const addressInformation: any = this.databaseServerInstance.address();
-        // fs.writeFileSync(this.SERVER_PORT_FILE_PATH, addressInformation.port);
+       this.databaseServerInstance = await app.listen(databasePort || 0);
+       const addressInformation: any = this.databaseServerInstance.address();
         console.log(`Created ${isInMemory ? 'inMemory' : 'local'} database ` +
             `sever http://localhost:${addressInformation.port}. Took: ${process.hrtime(hrstart)[1] / 1000000}ms.`);
 
