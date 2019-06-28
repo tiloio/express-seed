@@ -84,10 +84,10 @@ In `./src/test` is a `TestWebService.ts` which can be used to run integration te
 
 > The file [`./src/config/config.ts`](./src/config/config.ts) describes the environment variables.
 
-For passwords, database connections, log level and other stuff we need to set different values on different environment.
+For passwords, database connections, log level and other stuff we need to set different values on different environments.
 The test environment should not use the production database and otherwise.
 
-To set your environment variables you can just set them in you system:
+To set your environment variables you can just set them in your system:
 
 ```bash
 # windows
@@ -125,13 +125,13 @@ Just call `await Database.getInstance()` from [`./src/database.ts`](./src/databa
 
 > To work with the database we use CouchDB nano, visit [https://github.com/apache/couchdb-nano ](https://github.com/apache/couchdb-nano) for more information.
 
-## parsing (JSON, UrlEncode, ...)
+## parsing (JSON, UrlEncode, ...) 🔬
 
-To parse application/json or application/x-www-form-urlencoded requests, we use the expressjs/body-parser.
+To parse `application/json` or `application/x-www-form-urlencoded` requests, we use the expressjs/body-parser.
 
 > For more information and how to use it visit https://github.com/expressjs/body-parser.
 
-## security
+## security 🗝
 
  The application is secured with helmet.js.
 
