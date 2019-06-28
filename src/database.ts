@@ -1,9 +1,10 @@
 
 import { ENVIRONMENT, DATABASE_URL, DATABASE_PORT, DATABASE_NAME } from './config/config';
 import * as Nano from 'nano';
-import { createLocalDatabase} from './test/local-database';
+import { LocalDatabase } from './test/local-database';
 
 import { Environment } from './config/config.enums';
+import { Logger } from './config/logger';
 
 export class Database {
 
@@ -11,12 +12,13 @@ export class Database {
     private static serverInstance: Nano.ServerScope | undefined;
 
     static async getInstance(): Promise<Nano.DocumentScope<any>> {
+        const hrstart = process.hrtime()
         if (this.instance) return this.instance;
 
         let databasePort = DATABASE_PORT;
 
-        if (ENVIRONMENT === Environment.local) {
-            databasePort = ((await createLocalDatabase(DATABASE_PORT)).address() as any ).port;
+        if (ENVIRONMENT === Environment.local || ENVIRONMENT === Environment.test) {
+            databasePort = ((await LocalDatabase.create(DATABASE_PORT)).address() as any).port;
         }
 
         const nano: Nano.ServerScope = <Nano.ServerScope>Nano(`${DATABASE_URL}:${databasePort}`);
@@ -26,9 +28,9 @@ export class Database {
             await nano.db.create(DATABASE_NAME);
         }
 
-        console.log(
+        Logger.info(
             `Initilized ${DATABASE_NAME} database with sever ${DATABASE_URL}:${databasePort}. 
-            Other databases on the server: ${actualDatabases.join(', ')}`
+            Other databases on the server: ${actualDatabases.join(', ')}. Took: ${process.hrtime(hrstart)[1] / 1000000}ms.`
         );
 
         this.serverInstance = nano;
@@ -45,6 +47,5 @@ export class Database {
         this.instance = undefined;
         this.serverInstance = undefined;
     }
-
 }
 

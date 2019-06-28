@@ -39,7 +39,7 @@ function createTestEnvironment() {
     SERVER_PORT = 8080;
     LOG_LEVEL = LogLevel.debug;
     DATABASE_URL = 'http://localhost';
-    DATABASE_PORT = getLocalDBServerPort();
+    DATABASE_PORT = 0;
     DATABASE_NAME = 'express-seed';
 }
 
@@ -68,13 +68,3 @@ export class Config {
 }
 
 Config.setEnvironment(ENVIRONMENT);
-
-function getLocalDBServerPort(): number {
-    const serverportFilePath = path.join(ROOT_DIRECTORY, 'database', 'serverport');
-
-    if (!fs.existsSync(serverportFilePath)) {
-        return 0;
-    }
-
-    return Number.parseInt(fs.readFileSync(serverportFilePath, { encoding: 'UTF-8' }));
-}

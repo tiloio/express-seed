@@ -1,14 +1,15 @@
 import { Database } from "../database";
 import { HelloWorldService } from "../services/hello-world.service";
-import { clearDatabase } from "../test/local-database";
+import { LocalDatabase } from "../test/local-database";
 
-afterEach(async () => clearDatabase());
+afterEach(async () => await LocalDatabase.clear());
 
 describe('HelloWorldService', () => {
     describe('init', () => {
-        it('saves hello world in database', async () => {
+        it('saves hello world in database and does not fail on multiple runs', async () => {
 
-            HelloWorldService.init();
+            await HelloWorldService.init();
+            await HelloWorldService.init();
 
             const database = await Database.getInstance();
             const expectedMessage = 'Hello World from the Database!';

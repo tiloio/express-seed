@@ -9,6 +9,10 @@ export class Logger {
             '\x1b[0m'; // reset output color   
     }
 
+    static info(text: string) {
+        console.log(text, this.timestamp);
+    }
+
     static appStarting() {
         console.log('\n' +
             '\x1b[33m' + // set output color to yellow
