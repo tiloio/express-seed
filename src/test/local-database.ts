@@ -4,7 +4,7 @@ import * as PouchDB from 'pouchdb';
 import * as express from 'express';
 import { Server } from 'http';
 import { Database } from '../database';
-import { ROOT_DIRECTORY } from '..';
+import { ROOT_DIRECTORY } from '../config/config';
 
 const LOCAL_DATABASE_PATH = path.join(ROOT_DIRECTORY, 'database');
 const SERVER_PORT_FILE_PATH = path.join(LOCAL_DATABASE_PATH, 'serverport');
