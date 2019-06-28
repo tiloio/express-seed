@@ -125,7 +125,13 @@ Just call `await Database.getInstance()` from [`./src/database.ts`](./src/databa
 
 > To work with the database we use CouchDB nano, visit [https://github.com/apache/couchdb-nano ](https://github.com/apache/couchdb-nano) for more information.
 
-# security
+## parsing (JSON, UrlEncode, ...)
+
+To parse application/json or application/x-www-form-urlencoded requests, we use the expressjs/body-parser.
+
+> For more information and how to use it visit https://github.com/expressjs/body-parser.
+
+## security
 
  The application is secured with helmet.js.
 
