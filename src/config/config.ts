@@ -1,4 +1,10 @@
-let LOG_LEVEL = 'info';
+import { Environment, LogLevel } from "./config.enums";
+import * as fs from 'fs';
+import * as path from 'path';
+
+export const ROOT_DIRECTORY = path.join(__dirname, '..', '..');
+
+let LOG_LEVEL: string = LogLevel.info;
 let ENVIRONMENT: string | undefined = process.env.NODE_ENV;
 let SERVER_PORT: number;
 let DATABASE_URL: string;
@@ -23,17 +29,17 @@ function createProductionEnvironment() {
 
 function createLocalEnvironment() {
     SERVER_PORT = process.env.SERVER_PORT ? Number.parseInt(process.env.SERVER_PORT) : 8080;
-    LOG_LEVEL = process.env.LOG_LEVEL || 'debug';
+    LOG_LEVEL = process.env.LOG_LEVEL || LogLevel.debug;
     DATABASE_URL = process.env.DATABASE_URL || 'http://localhost';
-    DATABASE_PORT = process.env.DATABASE_PORT ? Number.parseInt(process.env.DATABASE_PORT) : 3000;
+    DATABASE_PORT = process.env.DATABASE_PORT ? Number.parseInt(process.env.DATABASE_PORT) : 3454;
     DATABASE_NAME = 'express-seed';
 }
 
 function createTestEnvironment() {
     SERVER_PORT = 8080;
-    LOG_LEVEL = 'debug';
-    DATABASE_URL = 'YOUR_DATABASE_URL';
-    DATABASE_PORT = 3000;
+    LOG_LEVEL = LogLevel.debug;
+    DATABASE_URL = 'http://localhost';
+    DATABASE_PORT = 0;
     DATABASE_NAME = 'express-seed';
 }
 
@@ -46,13 +52,13 @@ export class Config {
         ENVIRONMENT = environment as string;
 
         switch (environment) {
-            case "test":
+            case Environment.test:
                 createTestEnvironment();
                 break;
-            case "local":
+            case Environment.local:
                 createLocalEnvironment();
                 break;
-            case "production":
+            case Environment.production:
                 createProductionEnvironment();
                 break;
             default:
@@ -62,4 +68,3 @@ export class Config {
 }
 
 Config.setEnvironment(ENVIRONMENT);
-

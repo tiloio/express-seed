@@ -82,7 +82,7 @@ In `./src/test` is a `TestWebService.ts` which can be used to run integration te
 
 ## environment variables
 
-> The file [`./src/config.ts`](./src/config.ts) describes the environment variables.
+> The file [`./src/config/config.ts`](./src/config/config.ts) describes the environment variables.
 
 For passwords, database connections, log level and other stuff we need to set different values on different environment.
 The test environment should not use the production database and otherwise.
