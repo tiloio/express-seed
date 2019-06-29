@@ -1,5 +1,4 @@
 import { Environment, LogLevel } from "./config.enums";
-import * as fs from 'fs';
 import * as path from 'path';
 
 export const ROOT_DIRECTORY = path.join(__dirname, '..', '..');
@@ -36,7 +35,7 @@ function createLocalEnvironment() {
 }
 
 function createTestEnvironment() {
-    SERVER_PORT = 8080;
+    SERVER_PORT = 0;
     LOG_LEVEL = LogLevel.debug;
     DATABASE_URL = 'http://localhost';
     DATABASE_PORT = 0;

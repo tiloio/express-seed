@@ -1,15 +1,14 @@
 import { Database } from "../database";
-import { HelloWorldService } from "../services/hello-world.service";
 import { LocalDatabase } from "../test/local-database";
+import { LocalServer } from "../test/local-server";
 
 afterEach(async () => await LocalDatabase.clear());
 
 describe('HelloWorldService', () => {
-    describe('init', () => {
+    describe('on app start', () => {
         it('saves hello world in database and does not fail on multiple runs', async () => {
-
-            await HelloWorldService.init();
-            await HelloWorldService.init();
+            await LocalServer.run();
+            await LocalServer.run();
 
             const database = await Database.getInstance();
             const expectedMessage = 'Hello World from the Database!';
@@ -19,4 +18,3 @@ describe('HelloWorldService', () => {
         });
     });
 });
-

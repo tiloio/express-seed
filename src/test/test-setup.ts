@@ -1,4 +1,5 @@
 import { LocalDatabase } from "./local-database";
+import { LocalServer } from "./local-server";
 
 /**
  *  Here you can define global test settings, like a global afterEach.
@@ -7,5 +8,6 @@ import { LocalDatabase } from "./local-database";
  */
 
 afterAll(async () => {
+    LocalServer.stop();
     LocalDatabase.destroy();
 });
