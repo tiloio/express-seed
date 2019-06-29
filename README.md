@@ -90,6 +90,10 @@ Just call `await LocalServer.run();` and your application gets started. Do this 
 
 > The [`./src/api/v1/routes/some-route/some.route.spec.ts`](./src/api/v1/routes/some-route/some.route.spec.ts) file shows how to use the local-server.
 
+To send request we user supertest.
+
+> For more information and how to use supertest visit https://www.npmjs.com/package/supertest.
+
 ### database 🛢 in the test 
 
 To use the database in your integration test you can get the instance with `await Database.getInstance();`.
