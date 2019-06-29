@@ -7,7 +7,7 @@ import { HelloWorldService } from './services/hello-world.service';
 import { Server } from 'http';
 import { Environment } from './config/config.enums';
 
-export async function start(): Promise<Server> {
+export async function start(): Promise<express.Application> {
     await HelloWorldService.init();
 
     const app: express.Application = express();
@@ -15,7 +15,9 @@ export async function start(): Promise<Server> {
 
     app.use('/', new V1Route().router);
 
-    return await app.listen(SERVER_PORT);
+    app.locals.server = await app.listen(SERVER_PORT);
+
+    return app;
 }
 
 if (ENVIRONMENT != Environment.test) {

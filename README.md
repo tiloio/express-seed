@@ -86,11 +86,11 @@ We think you should write **less unit tests** and **more integration tests**.
 
 To make real requests in your tests you can use the  [`./src/test/local-server.ts`](./src/test/local-server.ts).
 
-Just call `await LocalServer.run();` and your application gets started. Do this `await request('http://localhost:' + LocalServer.port).get('/v1');` to make a request against the started application.
+Just call `await LocalServer.run();` and your application gets started. Do this `await request(LocalServer.app).get('/v1');` to make a request against the started application.
 
 > The [`./src/api/v1/routes/some-route/some.route.spec.ts`](./src/api/v1/routes/some-route/some.route.spec.ts) file shows how to use the local-server.
 
-To send request we user supertest.
+To send requests we user supertest.
 
 > For more information and how to use supertest visit https://www.npmjs.com/package/supertest.
 
