@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
 import { V1Route } from './api/v1/routes/v1.route';
-import { SERVER_PORT, Config, ENVIRONMENT } from './config/config';
+import { SERVER_PORT, ENVIRONMENT } from './config/config';
 import { Logger } from './config/logger';
 import { HelloWorldService } from './services/hello-world.service';
 import { Server } from 'http';
@@ -18,9 +18,9 @@ export async function start(): Promise<Server> {
     return await app.listen(SERVER_PORT);
 }
 
-if(ENVIRONMENT != Environment.test) {
-Logger.appStarting();
-start()
-    .then(Logger.appRunning)
-    .catch(Logger.appStartFailed);
+if (ENVIRONMENT != Environment.test) {
+    Logger.appStarting();
+    start()
+        .then(Logger.appRunning)
+        .catch(Logger.appStartFailed);
 }

@@ -7,7 +7,7 @@ describe('Some Route', () => {
 		await LocalServer.run();
 	});
 
-	describe('/v1', () => {
+	describe('GET /v1', () => {
 		it('gets hello world from database', async () => {
 			const response = await request('http://localhost:' + LocalServer.port).get('/v1');
 			expect(response.status).toEqual(200);
