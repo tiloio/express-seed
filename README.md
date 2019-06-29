@@ -78,7 +78,31 @@ npm run test:watchChanged
 
 ### Test structure
 
-In `./src/test` is a `TestWebService.ts` which can be used to run integration tests.
+We think you should write **less unit tests** and **more integration tests**. 
+
+> Spotify is using the *Microservice Testing Hondeycomb* for that. Read https://labs.spotify.com/2018/01/11/testing-of-microservices/ for more information.
+
+### requests and endpoints in the tests
+
+To make real requests in your tests you can use the  [`./src/test/local-server.ts`](./src/test/local-server.ts).
+
+Just call `await LocalServer.run();` and your application gets started. Do this `await request('http://localhost:' + LocalServer.port).get('/v1');` to make a request against the started application.
+
+> The [`./src/api/v1/routes/some-route/some.route.spec.ts`](./src/api/v1/routes/some-route/some.route.spec.ts) file shows how to use the local-server.
+
+### database 🛢 in the test 
+
+To use the database in your integration test you can get the instance with `await Database.getInstance();`.
+
+> Look at [`./src/services/hello-world.service.spec.ts`](./ssrc/services/hello-world.service.spec.ts) for a database example.
+
+### clean up
+
+The clean up of the database and application service which are used in the tests runs automatically.
+
+To clean the databse in between single runs you can call `await LocalDatabase.clear()`.
+
+> In the [`src/test/test-setup.ts`](src/test/test-setup.ts) file the `LocalServer.stop();` and `LocalDatabase.destroy();` gets called after each test file.
 
 ## environment variables
 
