@@ -160,3 +160,14 @@ To parse `application/json` or `application/x-www-form-urlencoded` requests, we 
  The application is secured with helmet.js.
 
  > For more information visit https://helmetjs.github.io/.
+
+ ## async express controlles
+
+ To write async express controllers you should use `asyncMiddleware`:
+```js
+this.router.get('/some/url', asyncMiddleware(
+        async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+            res.send(await this.controller.someAsyncMethod())
+        })
+    );
+```
