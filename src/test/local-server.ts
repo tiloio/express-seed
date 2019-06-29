@@ -2,7 +2,6 @@ import { Server } from 'http';
 import { AddressInfo } from 'net';
 import { start } from '../index';
 import { Application } from 'express';
-import { threadId } from 'worker_threads';
 
 export class LocalServer {
 	private static application: Application | null;
