@@ -20,6 +20,7 @@
     "@types/node": "^12.0.7",
     "@types/pouchdb": "^6.3.3",
     "@types/supertest": "^2.0.7",
+    "@types/helmet": "^0.0.43",
     "express-pouchdb": "^4.1.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
@@ -31,7 +32,6 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@types/helmet": "^0.0.43",
     "body-parser": "^1.19.0",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
