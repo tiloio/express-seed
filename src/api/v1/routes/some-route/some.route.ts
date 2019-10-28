@@ -1,23 +1,16 @@
 import * as express from 'express';
 import { SomeController } from '../../controllers/some.controller';
 import { asyncMiddleware } from '../../../async-middleware';
+import { AbstractRouter } from '../router.abstract';
 
-export class SomeRoute {
-	router: express.Router;
-	private controller: SomeController;
+export class SomeRoute extends AbstractRouter {
+	private controller = new SomeController();
 
-	constructor() {
-		this.router = express.Router();
-		this.controller = new SomeController();
-		this.init();
-	}
-
-	private init(): void {
+	protected init(): void {
 		this.router.get('/', asyncMiddleware(
 			async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 				res.send(await this.controller.someMethod())
 			})
 		);
 	}
-
 }
