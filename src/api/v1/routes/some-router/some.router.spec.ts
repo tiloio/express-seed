@@ -1,7 +1,7 @@
 import * as request from 'supertest';
 import { LocalServer } from '../../../../test/local-server';
 
-describe('Some Route', () => {
+describe('Some Router', () => {
 
 	beforeAll(async () => {
 		await LocalServer.run();

@@ -3,7 +3,7 @@ import { SomeController } from '../../controllers/some.controller';
 import { asyncMiddleware } from '../../../async-middleware';
 import { AbstractRouter } from '../router.abstract';
 
-export class SomeRoute extends AbstractRouter {
+export class SomeRouter extends AbstractRouter {
 	private controller = new SomeController();
 
 	protected init(): void {
